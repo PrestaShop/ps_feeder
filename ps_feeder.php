@@ -1,0 +1,105 @@
+<?php
+/*
+* 2007-2015 PrestaShop
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Academic Free License (AFL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/afl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@prestashop.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+* versions in the future. If you wish to customize PrestaShop for your
+* needs please refer to http://www.prestashop.com for more information.
+*
+*  @author PrestaShop SA <contact@prestashop.com>
+*  @copyright  2007-2015 PrestaShop SA
+*  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+*  International Registered Trademark & Property of PrestaShop SA
+*/
+
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+
+class Ps_Feeder extends Module
+{
+    public function __construct()
+    {
+        $this->name = 'ps_feeder';
+        $this->tab = 'front_office_features';
+        $this->version = '1.0.0';
+        $this->author = 'PrestaShop';
+        $this->need_instance = 0;
+        $this->controllers = array('rss');
+
+        parent::__construct();
+
+        $this->ps_versions_compliancy = array(
+            'min' => '1.7.0.0',
+            'max' => _PS_VERSION_,
+        );
+
+        $this->displayName = $this->trans(
+            'RSS products feed',
+            array(),
+            'Modules.Feeder.Admin'
+        );
+        $this->description = $this->trans(
+            'Generate a RSS feed for your latest products.',
+            array(),
+            'Modules.Feeder.Admin'
+        );
+    }
+
+    public function install()
+    {
+        return parent::install()
+            && $this->registerHook('displayHeader');
+    }
+
+    public function getWidgetVariables()
+    {
+        $regex = '!^(.*)\/([0-9]+)\-(.*[^\.])|(.*)id_category=([0-9]+)(.*)$!';
+
+        if (!($id_category = (int)Tools::getValue('id_category'))) {
+            if (isset($_SERVER['HTTP_REFERER'])
+                && strstr($_SERVER['HTTP_REFERER'], Tools::getHttpHost())
+                && preg_match($regex, $_SERVER['HTTP_REFERER'], $regs)) {
+                if (isset($regs[2]) && is_numeric($regs[2])) {
+                    $id_category = (int)($regs[2]);
+                } elseif (isset($regs[5]) && is_numeric($regs[5])) {
+                    $id_category = (int)$regs[5];
+                }
+            } elseif ($id_product = (int)Tools::getValue('id_product')) {
+                $product = new Product($id_product);
+                $id_category = $product->id_category_default;
+            }
+        }
+        $orderBy = Tools::getProductsOrder('by', Tools::getValue('orderby'));
+        $orderWay = Tools::getProductsOrder('way', Tools::getValue('orderway'));
+
+        return array(
+            'id_category' => $id_category,
+            'orderBy' => $orderBy,
+            'orderWay' => $orderWay,
+        );
+    }
+
+    public function hookDisplayHeader()
+    {
+        $this->smarty->assign(
+            $this->getWidgetVariables()
+        );
+
+        return $this->fetch(
+            'module:ps_feeder/views/template/hook/ps_feeder.tpl'
+        );
+    }
+}
