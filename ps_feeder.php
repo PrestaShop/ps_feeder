@@ -30,32 +30,28 @@ if (!defined('_PS_VERSION_')) {
 
 class Ps_Feeder extends Module
 {
+    private $templateFile;
+
     public function __construct()
     {
         $this->name = 'ps_feeder';
-        $this->tab = 'front_office_features';
-        $this->version = '1.0.0';
         $this->author = 'PrestaShop';
+        $this->version = '1.0.0';
         $this->need_instance = 0;
-        $this->controllers = array('rss');
 
-        parent::__construct();
+        $this->controllers = array('rss');
 
         $this->ps_versions_compliancy = array(
             'min' => '1.7.0.0',
             'max' => _PS_VERSION_,
         );
 
-        $this->displayName = $this->trans(
-            'RSS products feed',
-            array(),
-            'Modules.Feeder.Admin'
-        );
-        $this->description = $this->trans(
-            'Generate a RSS feed for your latest products.',
-            array(),
-            'Modules.Feeder.Admin'
-        );
+        parent::__construct();
+
+        $this->displayName = $this->trans('RSS products feed', array(), 'Modules.Feeder.Admin');
+        $this->description = $this->trans('Generate a RSS feed for your latest products.', array(), 'Modules.Feeder.Admin');
+
+        $this->templateFile = 'module:ps_feeder/views/template/hook/ps_feeder.tpl';
     }
 
     public function install()
@@ -82,6 +78,7 @@ class Ps_Feeder extends Module
                 $id_category = $product->id_category_default;
             }
         }
+
         $orderBy = Tools::getProductsOrder('by', Tools::getValue('orderby'));
         $orderWay = Tools::getProductsOrder('way', Tools::getValue('orderway'));
 
@@ -94,12 +91,8 @@ class Ps_Feeder extends Module
 
     public function hookDisplayHeader()
     {
-        $this->smarty->assign(
-            $this->getWidgetVariables()
-        );
+        $this->smarty->assign($this->getWidgetVariables());
 
-        return $this->fetch(
-            'module:ps_feeder/views/template/hook/ps_feeder.tpl'
-        );
+        return $this->fetch($this->templateFile);
     }
 }

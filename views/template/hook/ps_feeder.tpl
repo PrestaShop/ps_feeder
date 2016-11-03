@@ -22,18 +22,13 @@
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-
-<link rel="alternate"
-      type="application/rss+xml"
-      title="{$page.meta.title}"
-      href="{url
-        entity='module'
-        name='ps_feeder'
-        controller='rss'
-        params=[
-          'id_category' => $id_category,
-          'orderby' => $orderBy,
-          'orderway' => $orderWay
-        ]
-      }"
-/>
+<link rel="alternate" type="application/rss+xml" title="{$page.meta.title}" href="{url
+  entity='module'
+  name='ps_feeder'
+  controller='rss'
+  params=[
+  'id_category' => $id_category,
+  'orderby' => $orderBy,
+  'orderway' => $orderWay
+  ]
+  }">
