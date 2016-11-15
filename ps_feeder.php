@@ -36,7 +36,7 @@ class Ps_Feeder extends Module
     {
         $this->name = 'ps_feeder';
         $this->author = 'PrestaShop';
-        $this->version = '1.0.0';
+        $this->version = '1.0.1';
         $this->need_instance = 0;
 
         $this->controllers = array('rss');
