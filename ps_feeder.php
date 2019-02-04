@@ -39,17 +39,17 @@ class Ps_Feeder extends Module
         $this->version = '1.0.1';
         $this->need_instance = 0;
 
-        $this->controllers = array('rss');
+        $this->controllers = ['rss'];
 
-        $this->ps_versions_compliancy = array(
+        $this->ps_versions_compliancy = [
             'min' => '1.7.0.0',
             'max' => _PS_VERSION_,
-        );
+        ];
 
         parent::__construct();
 
-        $this->displayName = $this->trans('RSS products feed', array(), 'Modules.Feeder.Admin');
-        $this->description = $this->trans('Generate a RSS feed for your latest products.', array(), 'Modules.Feeder.Admin');
+        $this->displayName = $this->trans('RSS products feed', [], 'Modules.Feeder.Admin');
+        $this->description = $this->trans('Generate a RSS feed for your latest products.', [], 'Modules.Feeder.Admin');
 
         $this->templateFile = 'module:ps_feeder/views/template/hook/ps_feeder.tpl';
     }
@@ -82,11 +82,11 @@ class Ps_Feeder extends Module
         $orderBy = Tools::getProductsOrder('by', Tools::getValue('orderby'));
         $orderWay = Tools::getProductsOrder('way', Tools::getValue('orderway'));
 
-        return array(
+        return [
             'id_category' => $id_category,
             'orderBy' => $orderBy,
             'orderWay' => $orderWay,
-        );
+        ];
     }
 
     public function hookDisplayHeader()

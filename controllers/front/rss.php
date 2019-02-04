@@ -72,7 +72,7 @@ class Ps_FeederrssModuleFrontController extends ModuleFrontController
             $this->context->getTranslator()
         );
 
-        $productsForTemplate = array();
+        $productsForTemplate = [];
 
         $products = $result->getProducts();
 
@@ -102,7 +102,7 @@ class Ps_FeederrssModuleFrontController extends ModuleFrontController
 
         $products = $this->getProducts($id_category, $number, $orderBy, $orderWay);
 
-        return array(
+        return [
             'products' => $products,
             'currency' => new Currency((int)$this->context->currency->id),
             'affiliate' => (Tools::getValue('ac') ? '?ac=' . (int)Tools::getValue('ac') : ''),
@@ -112,7 +112,7 @@ class Ps_FeederrssModuleFrontController extends ModuleFrontController
             'shop_email' => Configuration::get('PS_SHOP_EMAIL'),
             'language_iso' => $this->context->language->iso_code,
             'logo' => $this->context->link->getMediaLink(_PS_IMG_ . Configuration::get('PS_LOGO')),
-        );
+        ];
     }
 
     public function initContent()
