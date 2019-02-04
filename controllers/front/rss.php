@@ -121,7 +121,7 @@ class Ps_FeederrssModuleFrontController extends ModuleFrontController
 
         $this->context->smarty->assign($this->getSmartyVariables());
 
-        header("Content-Type:text/xml; charset=utf-8");
+        header('Content-Type:text/xml; charset=utf-8');
         $this->setTemplate('module:ps_feeder/views/template/front/rss.tpl');
     }
 }
