@@ -91,10 +91,10 @@ class Ps_FeederrssModuleFrontController extends ModuleFrontController
 
     private function getSmartyVariables()
     {
-        $id_category = (int)Tools::getValue('id_category');
+        $id_category = (int) Tools::getValue('id_category');
         $id_category = $id_category ? $id_category : Configuration::get('PS_HOME_CATEGORY');
 
-        $number = (int)Tools::getValue('n', 10);
+        $number = (int) Tools::getValue('n', 10);
         $number = $number > 10 ? 10 : $number;
 
         $orderBy = Tools::getProductsOrder('by', Tools::getValue('orderby'));
@@ -104,9 +104,9 @@ class Ps_FeederrssModuleFrontController extends ModuleFrontController
 
         return array(
             'products' => $products,
-            'currency' => new Currency((int)$this->context->currency->id),
-            'affiliate' => (Tools::getValue('ac') ? '?ac=' . (int)Tools::getValue('ac') : ''),
-            'metas' => Meta::getMetaByPage('index', (int)$this->context->language->id),
+            'currency' => new Currency((int) $this->context->currency->id),
+            'affiliate' => (Tools::getValue('ac') ? '?ac=' . (int) Tools::getValue('ac') : ''),
+            'metas' => Meta::getMetaByPage('index', (int) $this->context->language->id),
             'shop_uri' => Tools::getShopDomainSsl(true, true) . __PS_BASE_URI__,
             'shop_name' => Configuration::get('PS_SHOP_NAME'),
             'shop_email' => Configuration::get('PS_SHOP_EMAIL'),

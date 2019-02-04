@@ -64,16 +64,16 @@ class Ps_Feeder extends Module
     {
         $regex = '!^(.*)\/([0-9]+)\-(.*[^\.])|(.*)id_category=([0-9]+)(.*)$!';
 
-        if (!($id_category = (int)Tools::getValue('id_category'))) {
+        if (!($id_category = (int) Tools::getValue('id_category'))) {
             if (isset($_SERVER['HTTP_REFERER'])
                 && strstr($_SERVER['HTTP_REFERER'], Tools::getHttpHost())
                 && preg_match($regex, $_SERVER['HTTP_REFERER'], $regs)) {
                 if (isset($regs[2]) && is_numeric($regs[2])) {
-                    $id_category = (int)($regs[2]);
+                    $id_category = (int) ($regs[2]);
                 } elseif (isset($regs[5]) && is_numeric($regs[5])) {
-                    $id_category = (int)$regs[5];
+                    $id_category = (int) $regs[5];
                 }
-            } elseif ($id_product = (int)Tools::getValue('id_product')) {
+            } elseif ($id_product = (int) Tools::getValue('id_product')) {
                 $product = new Product($id_product);
                 $id_category = $product->id_category_default;
             }
