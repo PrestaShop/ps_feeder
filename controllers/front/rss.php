@@ -49,8 +49,7 @@ class Ps_FeederrssModuleFrontController extends ModuleFrontController
         $query = new ProductSearchQuery();
         $query
             ->setResultsPerPage($nProducts)
-            ->setPage(1)
-        ;
+            ->setPage(1);
 
         $query->setSortOrder(new SortOrder('product', $orderBy, $orderWay));
 
