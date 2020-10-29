@@ -49,7 +49,7 @@ class Ps_Feeder extends Module
         parent::__construct();
 
         $this->displayName = $this->trans('RSS products feed', array(), 'Modules.Feeder.Admin');
-        $this->description = $this->trans('Generate a RSS feed for your latest products.', array(), 'Modules.Feeder.Admin');
+        $this->description = $this->trans('Add an RSS link inside your pages for visitors to get regular updates about your catalog.', array(), 'Modules.Feeder.Admin');
 
         $this->templateFile = 'module:ps_feeder/views/template/hook/ps_feeder.tpl';
     }
