@@ -2,7 +2,7 @@
 
 ## About
 
-Generate a RSS feed for your latest products.
+Add an RSS link inside your pages for visitors to get regular updates about your catalog.
 
 ## Multistore compatibility
 
