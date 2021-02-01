@@ -1,5 +1,7 @@
 # RSS products feed
 
+**This module has been archived, it’s no longer maintained but you still can fork it if you need it for your shop.**
+
 ## About
 
 Add an RSS link inside your pages for visitors to get regular updates about your catalog.
